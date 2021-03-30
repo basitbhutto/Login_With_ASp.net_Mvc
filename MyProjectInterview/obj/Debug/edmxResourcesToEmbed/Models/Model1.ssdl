@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Programming_Tast1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Registration">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="44" />
+    <Property Name="contact_number" Type="varchar" MaxLength="33" />
+    <Property Name="email" Type="varchar" MaxLength="33" />
+    <Property Name="password" Type="varchar" MaxLength="33" />
+    <Property Name="t_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Type_Login">
+    <Key>
+      <PropertyRef Name="t_id" />
+    </Key>
+    <Property Name="t_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="t_name" Type="varchar" MaxLength="33" />
+  </EntityType>
+  <Association Name="FK__Registrati__t_id__164452B1">
+    <End Role="Type_Login" Type="Self.Type_Login" Multiplicity="0..1" />
+    <End Role="Registration" Type="Self.Registration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type_Login">
+        <PropertyRef Name="t_id" />
+      </Principal>
+      <Dependent Role="Registration">
+        <PropertyRef Name="t_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Programming_Tast1ModelStoreContainer">
+    <EntitySet Name="Registration" EntityType="Self.Registration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Type_Login" EntityType="Self.Type_Login" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Registrati__t_id__164452B1" Association="Self.FK__Registrati__t_id__164452B1">
+      <End Role="Type_Login" EntitySet="Type_Login" />
+      <End Role="Registration" EntitySet="Registration" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

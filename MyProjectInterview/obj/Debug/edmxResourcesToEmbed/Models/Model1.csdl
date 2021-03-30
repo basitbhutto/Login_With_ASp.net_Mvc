@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Programming_Tast1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Registration">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="44" FixedLength="false" Unicode="false" />
+    <Property Name="contact_number" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
+    <Property Name="t_id" Type="Int32" />
+    <NavigationProperty Name="Type_Login" Relationship="Self.FK__Registrati__t_id__164452B1" FromRole="Registration" ToRole="Type_Login" />
+  </EntityType>
+  <EntityType Name="Type_Login">
+    <Key>
+      <PropertyRef Name="t_id" />
+    </Key>
+    <Property Name="t_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="t_name" Type="String" MaxLength="33" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Registrations" Relationship="Self.FK__Registrati__t_id__164452B1" FromRole="Type_Login" ToRole="Registration" />
+  </EntityType>
+  <Association Name="FK__Registrati__t_id__164452B1">
+    <End Role="Type_Login" Type="Self.Type_Login" Multiplicity="0..1" />
+    <End Role="Registration" Type="Self.Registration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type_Login">
+        <PropertyRef Name="t_id" />
+      </Principal>
+      <Dependent Role="Registration">
+        <PropertyRef Name="t_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Programming_Tast1Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Registrations" EntityType="Self.Registration" />
+    <EntitySet Name="Type_Login" EntityType="Self.Type_Login" />
+    <AssociationSet Name="FK__Registrati__t_id__164452B1" Association="Self.FK__Registrati__t_id__164452B1">
+      <End Role="Type_Login" EntitySet="Type_Login" />
+      <End Role="Registration" EntitySet="Registrations" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
